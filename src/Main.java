@@ -13,22 +13,22 @@ import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toMap;
 
 public class Main {
-	
-	private final static Scanner scanner= new Scanner(System.in);
-	
-	private static Board board;
-	
-	private final static int BOARD_LIMIT = 9;
-	
-	public static void main(String[] args) {
-		final var positions = Stream.of(args)
-				.collect(toMap(
-						k -> k.split(";")[0],
-						v -> v.split(";")[1]
-				));
-		var option = -1;
-		while (true) {
-			System.out.println("Selecione uma das opções a seguir");
+
+    private final static Scanner scanner = new Scanner(System.in);
+
+    private static Board board;
+
+    private final static int BOARD_LIMIT = 9;
+
+    public static void main(String[] args) {
+        final var positions = Stream.of(args)
+                .collect(toMap(
+                        k -> k.split(";")[0],
+                        v -> v.split(";")[1]
+                ));
+        var option = -1;
+        while (true){
+            System.out.println("Selecione uma das opções a seguir");
             System.out.println("1 - Iniciar um novo Jogo");
             System.out.println("2 - Colocar um novo número");
             System.out.println("3 - Remover um número");
@@ -51,10 +51,11 @@ public class Main {
                 case 8 -> System.exit(0);
                 default -> System.out.println("Opção inválida, selecione uma das opções do menu");
             }
-		}
-	}
-	private static void startGame(Map<String, String> positions) {
-		if (nonNull(board)){
+        }
+    }
+
+    private static void startGame(final Map<String, String> positions) {
+        if (nonNull(board)){
             System.out.println("O jogo já foi iniciado");
             return;
         }
@@ -73,15 +74,16 @@ public class Main {
 
         board = new Board(spaces);
         System.out.println("O jogo está pronto para começar");
-	}
-	
-	private static void inputNumber() {
-		if (isNull(board)){
+    }
+
+
+    private static void inputNumber() {
+        if (isNull(board)){
             System.out.println("O jogo ainda não foi iniciado iniciado");
             return;
-		}
-		
-		System.out.println("Informe a coluna que em que o número será inserido");
+        }
+
+        System.out.println("Informe a coluna que em que o número será inserido");
         var col = runUntilGetValidNumber(0, 8);
         System.out.println("Informe a linha que em que o número será inserido");
         var row = runUntilGetValidNumber(0, 8);
@@ -90,10 +92,10 @@ public class Main {
         if (!board.changeValue(col, row, value)){
             System.out.printf("A posição [%s,%s] tem um valor fixo\n", col, row);
         }
-	}
-	
-	private static void removeNumber() {
-		if (isNull(board)){
+    }
+
+    private static void removeNumber() {
+        if (isNull(board)){
             System.out.println("O jogo ainda não foi iniciado iniciado");
             return;
         }
@@ -105,9 +107,9 @@ public class Main {
         if (!board.clearValue(col, row)){
             System.out.printf("A posição [%s,%s] tem um valor fixo\n", col, row);
         }
-	}
-	
-	private static void showCurrentGame() {
+    }
+
+    private static void showCurrentGame() {
         if (isNull(board)){
             System.out.println("O jogo ainda não foi iniciado iniciado");
             return;
@@ -123,8 +125,8 @@ public class Main {
         System.out.println("Seu jogo se encontra da seguinte forma");
         System.out.printf((BOARD_TEMPLATE) + "\n", args);
     }
-	
-	private static void showGameStatus() {
+
+    private static void showGameStatus() {
         if (isNull(board)){
             System.out.println("O jogo ainda não foi iniciado iniciado");
             return;
@@ -173,6 +175,7 @@ public class Main {
         }
     }
 
+
     private static int runUntilGetValidNumber(final int min, final int max){
         var current = scanner.nextInt();
         while (current < min || current > max){
@@ -181,4 +184,5 @@ public class Main {
         }
         return current;
     }
+
 }
